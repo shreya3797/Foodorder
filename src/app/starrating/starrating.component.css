@@ -1,0 +1,9 @@
+svg {
+    margin-right: 0.25rem;
+}
+.filled-star {
+    fill: green;
+}
+.blank-star {
+    fill: gray;
+}
