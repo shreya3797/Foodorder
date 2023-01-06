@@ -1,3 +1,4 @@
+<app-search></app-search>
 <ul>
     <li *ngFor="let food of foods">
         <a>
@@ -6,8 +7,8 @@
                 <div class="name">
                     {{food.name}}
                 </div>
-                <span class="favorite">♥</span>
-                <div class="flex-container">          
+                <span class="favorite {{food.favorite ? '' : 'not'}}">♥</span>
+                <div class="flex-container star">          
                     <app-starrating [rating]="food.star" (mainClick)="onMainClick($event, food.id)"></app-starrating>                
                 </div>
                 <div class="product-item-footer">
@@ -15,8 +16,10 @@
                         <span *ngFor="let origin of food.origins">
                             {{origin}}
                         </span>
-                    </div>
-                </div>
+                    </div> 
+                    <div class="cook-time">🕛{{food.cookTime}}</div>                   
+                </div>            
+                <div class="price">{{food.price|currency}}</div>
             </div>                     
         </a>
     </li>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FoodService } from '../services/food/food.service';
 import { Foods } from '../shared/models/food';
 
@@ -10,10 +11,16 @@ import { Foods } from '../shared/models/food';
 export class HomeComponent {
   foods: Foods[] = [];
   stars = [];    
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: FoodService, private router: ActivatedRoute) {}
 
-  ngOnInit() {    
-    this.foods = this.foodService.getAll();
+  ngOnInit() {
+    this.router.params.subscribe(params => {
+      if (params['searchItem']) {
+        this.foods = this.foodService.getAll().filter(a => a.name.toLowerCase().includes(params['searchItem'].toLowerCase()));
+      } else {
+        this.foods = this.foodService.getAll();
+      }
+    });    
   }
   onMainClick(i: number, id: number) {
     let item = this.foods.find(a => a.id == id);
